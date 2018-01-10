@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { RichUtils } from 'draft-js';
 import unionClassNames from 'union-class-names';
 
 export default ({ blockType, children }) => (
-  class BlockStyleButton extends Component {
+  class BlockStyleButton extends PureComponent {
 
     toggleStyle = (event) => {
       event.preventDefault();
@@ -42,6 +42,7 @@ export default ({ blockType, children }) => (
         >
           <button
             className={className}
+            data-button-type={`block-${blockType.toLowerCase()}`}
             onClick={this.toggleStyle}
             type="button"
             children={children}

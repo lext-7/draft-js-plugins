@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import unionClassNames from 'union-class-names';
 
 export default ({ alignment, children }) => (
-  class BlockAlignmentButton extends Component {
+  class BlockAlignmentButton extends PureComponent {
 
     activate = (event) => {
       event.preventDefault();
@@ -24,6 +24,7 @@ export default ({ alignment, children }) => (
         >
           <button
             className={className}
+            data-button-type={`alignment-${alignment}`}
             onClick={this.activate}
             type="button"
             children={children}

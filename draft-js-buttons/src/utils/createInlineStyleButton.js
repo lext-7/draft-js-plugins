@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { RichUtils } from 'draft-js';
 import unionClassNames from 'union-class-names';
 
 export default ({ style, children }) => (
-  class InlineStyleButton extends Component {
+  class InlineStyleButton extends PureComponent {
 
     toggleStyle = (event) => {
       event.preventDefault();
@@ -31,6 +31,7 @@ export default ({ style, children }) => (
         >
           <button
             className={className}
+            data-button-type={`inline-${style.toLowerCase()}`}
             onClick={this.toggleStyle}
             type="button"
             children={children}
