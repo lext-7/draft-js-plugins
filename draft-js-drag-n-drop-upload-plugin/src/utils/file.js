@@ -13,7 +13,7 @@ export function containsFiles(event) {
 
 // Read file contents intelligently as plain text/json, image as dataUrl or
 // anything else as binary
-export function readFile(file) {
+export function readFile(file, fileFilter) {
   return new Promise((resolve) => {
     const reader = new FileReader();
 
@@ -32,6 +32,11 @@ export function readFile(file) {
         src: event.target.result,
       });
     };
+
+    if (fileFilter && !fileFilter(file)) {
+      resolve(null);
+      return;
+    }
 
     if (file.type.indexOf('text/') === 0 || file.type === 'application/json') {
       reader.readAsText(file);
