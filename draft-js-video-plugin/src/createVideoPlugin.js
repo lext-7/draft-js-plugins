@@ -1,7 +1,10 @@
 import decorateComponentWithProps from 'decorate-component-with-props';
 import addVideo from './video/modifiers/addVideo';
 import DefaultVideoComponent from './video/components/DefaultVideoComponent';
+import createVideoButton from './video/components/createAddVideoButton';
+import AddVideoButton from './video/components/AddVideoButton';
 import * as types from './video/constants';
+import createStore from './video/utils/createStore';
 import videoStyles from './videoStyles.css';
 
 const defaultTheme = videoStyles;
@@ -12,8 +15,26 @@ const videoPlugin = (config = {}) => {
   if (config.decorator) {
     Video = config.decorator(Video);
   }
-  const ThemedVideo = decorateComponentWithProps(Video, { theme });
+
+  const { getSrc } = config;
+
+  const store = createStore({
+    getEditorState: undefined,
+    setEditorState: undefined,
+  });
+
+  const ThemedVideo = decorateComponentWithProps(Video, { theme, getSrc });
+
+  const videoButtonProps = {
+    addVideo,
+    store,
+  };
+
   return {
+    initialize: ({ getEditorState, setEditorState }) => {
+      store.updateItem('getEditorState', getEditorState);
+      store.updateItem('setEditorState', setEditorState);
+    },
     blockRendererFn: (block, { getEditorState }) => {
       if (block.getType() === types.ATOMIC) {
         // TODO subject to change for draft-js next release
@@ -36,6 +57,11 @@ const videoPlugin = (config = {}) => {
     },
     addVideo,
     types,
+    createVideoButton,
+    decorateVideoButton(Button) {
+      return decorateComponentWithProps(Button, videoButtonProps);
+    },
+    AddVideoButton: decorateComponentWithProps(AddVideoButton, videoButtonProps),
   };
 };
 

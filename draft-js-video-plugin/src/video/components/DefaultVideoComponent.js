@@ -5,7 +5,7 @@ import utils from '../utils';
 const YOUTUBE_PREFIX = 'https://www.youtube.com/embed/';
 const VIMEO_PREFIX = 'https://player.vimeo.com/video/';
 
-const getSrc = ({ src }) => {
+const defaultGetSrc = ({ src }) => {
   const {
     isYoutube,
     getYoutubeSrc,
@@ -28,6 +28,7 @@ const DefaultVideoCompoent = ({
   className = '',
   style,
   theme,
+  getSrc = defaultGetSrc,
 }) => {
   const src = getSrc(blockProps);
   if (src) {
