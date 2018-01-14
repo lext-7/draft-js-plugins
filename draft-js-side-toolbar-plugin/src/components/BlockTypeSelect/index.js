@@ -19,6 +19,9 @@ export default class BlockTypeSelect extends React.PureComponent {
   }
 
   onMouseLeave = () => {
+    if (this.props.stick) {
+      return;
+    }
     this.setState({
       style: {
         transform: 'translate(-50%) scale(0)',
@@ -32,7 +35,14 @@ export default class BlockTypeSelect extends React.PureComponent {
   }
 
   render() {
-    const { theme, getEditorState, setEditorState, store } = this.props;
+    const {
+      theme,
+      getEditorState,
+      setEditorState,
+      store,
+      stick,
+      onStick
+    } = this.props;
     return (
       <div
         onMouseEnter={this.onMouseEnter}
@@ -58,6 +68,8 @@ export default class BlockTypeSelect extends React.PureComponent {
               setEditorState={setEditorState}
               theme={theme.buttonStyles}
               store={store}
+              stick={stick}
+              onStick={onStick}
             />
           ))}
         </div>
