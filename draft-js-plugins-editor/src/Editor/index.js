@@ -174,6 +174,17 @@ class PluginEditor extends Component {
       });
 
       return styles || '';
+    } else if (methodName === 'customStyleFn') {
+      let styles = {};
+      plugins.forEach((plugin) => {
+        if (typeof plugin[methodName] !== 'function') return;
+        const result = plugin[methodName](...newArgs);
+        if (result !== undefined && result !== null) {
+          styles = Object.assign(styles, result);
+        }
+      });
+
+      return styles;
     }
 
     let result;
