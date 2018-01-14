@@ -1,7 +1,7 @@
 import unionClassNames from 'union-class-names';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-export default class Image extends Component {
+export default class Image extends PureComponent {
   render() {
     const {
       block,
