@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import unionClassNames from 'union-class-names';
 import EditorUtils from '../../utils/EditorUtils';
 import AddLinkForm from './AddLinkForm';
 
-export default class LinkButton extends Component {
+export default class LinkButton extends PureComponent {
   static propTypes = {
     placeholder: PropTypes.string,
     store: PropTypes.object.isRequired,
@@ -43,6 +43,7 @@ export default class LinkButton extends Component {
         <button
           className={className}
           onClick={hasLinkSelected ? onRemoveLinkAtSelection : this.onAddLinkClick}
+          data-button-type="link"
           type="button"
         >
           <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

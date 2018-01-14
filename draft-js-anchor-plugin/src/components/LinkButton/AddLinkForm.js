@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import unionClassNames from 'union-class-names';
 import URLUtils from '../../utils/URLUtils';
 import EditorUtils from '../../utils/EditorUtils';
 
-export default class AddLinkForm extends Component {
+export default class AddLinkForm extends PureComponent {
   static propTypes = {
     getEditorState: PropTypes.func.isRequired,
     setEditorState: PropTypes.func.isRequired,
