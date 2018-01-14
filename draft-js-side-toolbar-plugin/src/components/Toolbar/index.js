@@ -2,7 +2,7 @@
 import React from 'react';
 import DraftOffsetKey from 'draft-js/lib/DraftOffsetKey';
 
-export default class Toolbar extends React.Component {
+export default class Toolbar extends React.PureComponent {
 
   state = {
     position: {
@@ -62,6 +62,7 @@ export default class Toolbar extends React.Component {
             key={index}
             getEditorState={store.getItem('getEditorState')}
             setEditorState={store.getItem('setEditorState')}
+            store={store}
             theme={theme}
           />
         ))}

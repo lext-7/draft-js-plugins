@@ -15,8 +15,7 @@ const getRelativeParent = (element) => {
   return getRelativeParent(element.parentElement);
 };
 
-export default class Toolbar extends React.Component {
-
+export default class Toolbar extends React.PureComponent {
   state = {
     isVisible: false,
     position: undefined,
@@ -96,6 +95,7 @@ export default class Toolbar extends React.Component {
     const { theme, store, structure } = this.props;
     const { overrideContent: OverrideContent } = this.state;
     const childrenProps = {
+      store,
       theme: theme.buttonStyles,
       getEditorState: store.getItem('getEditorState'),
       setEditorState: store.getItem('setEditorState'),
