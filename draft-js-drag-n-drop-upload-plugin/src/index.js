@@ -1,8 +1,9 @@
-import handleDroppedFiles from './handleDroppedFiles';
+import createHandleUpload from './handleUpload';
 
 const createDndFileUploadPlugin = (config = {}) => ({
   // Handle file drops
-  handleDroppedFiles: handleDroppedFiles(config),
+  handleDroppedFiles: createHandleUpload(config),
+  createHandleUpload,
 });
 
 export default createDndFileUploadPlugin;
