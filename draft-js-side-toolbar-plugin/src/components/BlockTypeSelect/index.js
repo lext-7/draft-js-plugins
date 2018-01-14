@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 
-export default class BlockTypeSelect extends React.Component {
+export default class BlockTypeSelect extends React.PureComponent {
 
   state = {
     style: {
@@ -19,6 +19,9 @@ export default class BlockTypeSelect extends React.Component {
   }
 
   onMouseLeave = () => {
+    if (this.props.stick) {
+      return;
+    }
     this.setState({
       style: {
         transform: 'translate(-50%) scale(0)',
@@ -32,7 +35,14 @@ export default class BlockTypeSelect extends React.Component {
   }
 
   render() {
-    const { theme, getEditorState, setEditorState } = this.props;
+    const {
+      theme,
+      getEditorState,
+      setEditorState,
+      store,
+      stick,
+      onStick
+    } = this.props;
     return (
       <div
         onMouseEnter={this.onMouseEnter}
@@ -57,6 +67,9 @@ export default class BlockTypeSelect extends React.Component {
               getEditorState={getEditorState}
               setEditorState={setEditorState}
               theme={theme.buttonStyles}
+              store={store}
+              stick={stick}
+              onStick={onStick}
             />
           ))}
         </div>

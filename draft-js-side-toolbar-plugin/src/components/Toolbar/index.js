@@ -2,13 +2,19 @@
 import React from 'react';
 import DraftOffsetKey from 'draft-js/lib/DraftOffsetKey';
 
-export default class Toolbar extends React.Component {
+export default class Toolbar extends React.PureComponent {
+
+  statics = {
+    stick: false,
+  };
 
   state = {
     position: {
       transform: 'scale(0)',
-    }
+    },
+    stick: false,
   }
+
 
   componentDidMount() {
     this.props.store.subscribeToItem('editorState', this.onEditorStateChange);
@@ -20,6 +26,10 @@ export default class Toolbar extends React.Component {
 
   onEditorStateChange = (editorState) => {
     const selection = editorState.getSelection();
+    const { stick } = this.state;
+    if ((stick || this.statics.stick) && this.state.position.transform !== 'scale(0)') {
+      return;
+    }
     if (!selection.getHasFocus()) {
       this.setState({
         position: {
@@ -50,8 +60,16 @@ export default class Toolbar extends React.Component {
     }, 0);
   }
 
+  onStick = (stick) => {
+    this.statics.stick = stick;
+    this.setState({
+      stick,
+    });
+  }
+
   render() {
     const { theme, store } = this.props;
+    const { stick } = this.state;
     return (
       <div
         className={theme.toolbarStyles.wrapper}
@@ -62,7 +80,10 @@ export default class Toolbar extends React.Component {
             key={index}
             getEditorState={store.getItem('getEditorState')}
             setEditorState={store.getItem('setEditorState')}
+            store={store}
             theme={theme}
+            stick={stick}
+            onStick={this.onStick}
           />
         ))}
       </div>
