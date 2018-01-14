@@ -15,6 +15,15 @@ export default (config = {}) => {
     setEditorState: undefined
   };
 
+  const buttonProps = {
+    ownTheme: theme,
+    store,
+    placeholder,
+    onRemoveLinkAtSelection: () => store.setEditorState(
+      EditorUtils.removeLinkAtSelection(store.getEditorState())
+    )
+  };
+
   return {
     initialize: ({ getEditorState, setEditorState }) => {
       store.getEditorState = getEditorState;
@@ -32,13 +41,9 @@ export default (config = {}) => {
       }
     ],
 
-    LinkButton: decorateComponentWithProps(LinkButton, {
-      ownTheme: theme,
-      store,
-      placeholder,
-      onRemoveLinkAtSelection: () => store.setEditorState(
-        EditorUtils.removeLinkAtSelection(store.getEditorState())
-      )
-    })
+    LinkButton: decorateComponentWithProps(LinkButton, buttonProps),
+    createLinkButton(Button) {
+      return decorateComponentWithProps(Button, buttonProps);
+    }
   };
 };
