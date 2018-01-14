@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 const getDisplayName = (WrappedComponent) => {
@@ -8,7 +8,7 @@ const getDisplayName = (WrappedComponent) => {
 
 const round = (x, steps) => Math.ceil(x / steps) * steps;
 
-export default ({ config, store }) => (WrappedComponent) => class BlockResizeableDecorator extends Component {
+export default ({ config, store }) => (WrappedComponent) => class BlockResizeableDecorator extends PureComponent {
   static displayName = `BlockDraggable(${getDisplayName(WrappedComponent)})`;
   static WrappedComponent = WrappedComponent.WrappedComponent || WrappedComponent;
   static defaultProps = {
